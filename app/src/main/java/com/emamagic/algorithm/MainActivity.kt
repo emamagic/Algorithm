@@ -6,6 +6,7 @@ import android.util.Log
 import com.emamagic.algorithm.dynamic_array.DynamicArray
 import com.emamagic.algorithm.linked_list.LinkedList
 import com.emamagic.algorithm.sort.*
+import com.emamagic.algorithm.strategy.LRUCache
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,12 @@ class MainActivity : AppCompatActivity() {
 //        linkedList.print()
 
 
+        val lruCache = LRUCache<String, Int>(2)
+
+        lruCache["one"] = 1
+        lruCache["two"] = 2
+        lruCache.get("one")
+        lruCache.print()
 
     }
 }
