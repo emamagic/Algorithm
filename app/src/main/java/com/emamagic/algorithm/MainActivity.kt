@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         lruCache["one"] = 1
         lruCache["two"] = 2
-        lruCache.get("one")
+        lruCache["one"]
         lruCache.print()
 
     }

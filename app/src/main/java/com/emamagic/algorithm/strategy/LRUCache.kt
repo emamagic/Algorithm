@@ -12,7 +12,7 @@ class LRUCache<K, V> constructor(
 
     private val map = hashMapOf<K, Node<K, V>>()
     private var head = Node<K, V>(null, null, null, null)
-    private var end = Node<K, V>(null, null, null, null)
+    private var tail = Node<K, V>(null, null, null, null)
 
     data class Node<K, V>(
         var prev: Node<K, V>? = null,
@@ -30,7 +30,7 @@ class LRUCache<K, V> constructor(
         if (node.next != null) {
             node.next!!.prev = node.prev
         } else {
-            end = node.prev!!
+            tail = node.prev!!
         }
     }
 
@@ -39,7 +39,7 @@ class LRUCache<K, V> constructor(
         node.prev = null
         head.prev = node
         head = node
-        end = head
+        tail = head
     }
 
     operator fun set(key: K, value: V) {
@@ -51,9 +51,9 @@ class LRUCache<K, V> constructor(
         } else {
             val newNode = Node(key = key, value = value)
             if (map.size >= capacity!!) {
-                map.remove(end.key)
+                map.remove(tail.key)
                 // remove last node
-                delete(end)
+                delete(tail)
                 updateHead(newNode)
             } else {
                 updateHead(newNode)
@@ -62,7 +62,7 @@ class LRUCache<K, V> constructor(
         }
     }
 
-    fun get(key: K): V? {
+    operator fun get(key: K): V? {
         if (map.containsKey(key)) {
             val n: Node<K,V> = map[key]!!
             delete(n)
