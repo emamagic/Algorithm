@@ -48,10 +48,8 @@ class MainActivity : AppCompatActivity() {
         linkedList.addLast(10)
         linkedList.addLast(20)
         linkedList.addLast(30)
-
-        linkedList.reverse()
-
-//        linkedList.print()
+        linkedList.addLast(40)
+        linkedList.addLast(50)
 
 
         val lruCache = LRUCache<String, Int>(2)

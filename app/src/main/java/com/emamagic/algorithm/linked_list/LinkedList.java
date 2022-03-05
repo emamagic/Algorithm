@@ -89,10 +89,10 @@ public class LinkedList {
         length--;
     }
 
-    private Node getPrevious(Node node) {
+    private Node getPrevious(Node lastNode) {
         Node currentNode = first;
         while (currentNode != null) {
-            if(currentNode.next == node) return currentNode;
+            if(currentNode.next == lastNode) return currentNode;
             currentNode = currentNode.next;
         }
         return null;
@@ -118,33 +118,50 @@ public class LinkedList {
     public void reverse() throws Exception {
         if (isEmpty())
             throw new Exception("Linked List Is Empty");
-        Node previousNode = first;
-        Node currentNode = first.next;
+        Node current = first;
+        Node next;
+        Node pre = null;
         last = first;
-        last.next = null;
-        while (currentNode != null) {
-            Node next = currentNode.next;
-            currentNode.next = previousNode;
-            previousNode = currentNode;
-            currentNode = next;
+        while (current != null) {
+            next = current.next;
+            current.next = pre;
+            pre = current;
+            current = next;
         }
-        first = previousNode;
+        first = pre;
+    }
+
+    // FloydWarshall algorithm
+    public int getKthFromTheEnd(int k) throws Exception {
+        if (isEmpty())
+            throw new Exception("Linked List Is Empty");
+        Node floyd = first;
+        Node warshall = first;
+        int distance = k-1;
+        while (warshall.next != null) {
+            warshall = warshall.next;
+            if (--distance < 0) floyd = floyd.next;
+        }
+        return floyd.value;
+    }
+
+    public void middle() {
+
     }
 
     public void print() {
         if (isEmpty()) {
             builder.append("[]");
         } else {
-            builder.append('[');
             Node currentNode = first;
             while (currentNode != null) {
-                builder.append(currentNode.value).append(", ");
+                builder.append(currentNode.value).append(" -> ");
                 currentNode = currentNode.next;
             }
-            builder.delete(builder.length() - 2, builder.length());
-            builder.append(']');
+            builder.append("Null").append(" -> ");
+            builder.delete(builder.length() - 4, builder.length());
         }
-        Log.e(TAG, "linked list items -> " + builder);
+        Log.e(TAG, "linked list items :   " + builder);
     }
 
 }
