@@ -135,18 +135,58 @@ public class LinkedList {
     public int getKthFromTheEnd(int k) throws Exception {
         if (isEmpty())
             throw new Exception("Linked List Is Empty");
-        Node floyd = first;
-        Node warshall = first;
+        Node a = first;
+        Node b = first;
         int distance = k-1;
-        while (warshall.next != null) {
-            warshall = warshall.next;
-            if (--distance < 0) floyd = floyd.next;
+        while (b.next != null) {
+            b = b.next;
+            if (--distance < 0) a = a.next;
         }
-        return floyd.value;
+        return a.value;
     }
 
-    public void middle() {
+    public String middle() throws Exception {
+        if (isEmpty())
+            throw new Exception("Linked List Is Empty");
+        Node a = first;
+        Node b = first;
+        int distance = 3;
+        int length = 0;
+        while (a != null) {
+            a = a.next;
+            if (--distance <= 0) {
+                b = b.next;
+                distance = 3;
+            }
+            length++;
+        }
+        if (length % 2 == 0) return  b.value + " , " + b.next.value;
+        else return  "" + b.next.value;
+    }
 
+    // when we know the last item
+    public String middle2() throws Exception {
+        if (isEmpty())
+            throw new Exception("Linked List Is Empty");
+        Node a = first;
+        Node b = first;
+        while (a != last && a.next != last) {
+            a = a.next.next;
+            b = b.next;
+        }
+        if (a == last) return "" + b.next.value;
+        else return   b.value + " , " + b.next.value;
+    }
+
+    public boolean hasLoop() {
+        Node a = first;
+        Node b = first;
+        while (a != null && a.next != null) {
+            a = a.next.next;
+            b = b.next;
+            if (a == b) return true;
+        }
+        return false;
     }
 
     public void print() {
@@ -162,6 +202,18 @@ public class LinkedList {
             builder.delete(builder.length() - 4, builder.length());
         }
         Log.e(TAG, "linked list items :   " + builder);
+    }
+
+    public static LinkedList createWithLoop() {
+        LinkedList linkedList = new LinkedList();
+        linkedList.addLast(10);
+        linkedList.addLast(20);
+        linkedList.addLast(30);
+        Node node = linkedList.last;
+        linkedList.addLast(40);
+        linkedList.addLast(50);
+        linkedList.last.next = node;
+        return linkedList;
     }
 
 }

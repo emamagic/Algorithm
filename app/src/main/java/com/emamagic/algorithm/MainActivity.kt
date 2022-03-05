@@ -50,7 +50,11 @@ class MainActivity : AppCompatActivity() {
         linkedList.addLast(30)
         linkedList.addLast(40)
         linkedList.addLast(50)
+        linkedList.addLast(60)
+//        linkedList.addLast(70)
 
+        val loopList = LinkedList.createWithLoop()
+        Log.e(TAG, "onCreate: " + loopList.hasLoop())
 
         val lruCache = LRUCache<String, Int>(2)
 
