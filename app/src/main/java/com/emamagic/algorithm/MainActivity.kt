@@ -6,6 +6,8 @@ import android.util.Log
 import com.emamagic.algorithm.dynamic_array.DynamicArray
 import com.emamagic.algorithm.linked_list.LinkedList
 import com.emamagic.algorithm.sort.*
+import com.emamagic.algorithm.stack.Expression
+import com.emamagic.algorithm.stack.StringReverser
 import com.emamagic.algorithm.strategy.LRUCache
 
 private const val TAG = "MainActivity"
@@ -62,6 +64,15 @@ class MainActivity : AppCompatActivity() {
         lruCache["two"] = 2
         lruCache["one"]
         lruCache.print()
+
+        val reverser = StringReverser()
+        val output = reverser.revers("abcd")
+        Log.e(TAG, "onCreate: $output")
+
+        val expression = Expression();
+        val isExpression = expression.isBalance("(1+2)")
+        Log.e(TAG, "onCreate: $isExpression")
+
 
     }
 }
